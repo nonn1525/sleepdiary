@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import CalendarComponent from "../components/CalendarComponent";
 
 // const styles = StyleSheet.create({
 //     month: {
@@ -10,7 +11,7 @@ import { View, Text, StyleSheet } from "react-native";
 const CalendarScreen = () => {
   return (
     <View>
-      <Text>2021/08</Text>
+      <CalendarComponent />
     </View>
   );
 };
