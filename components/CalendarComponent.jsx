@@ -1,43 +1,48 @@
+import React, { useState } from "react";
 import { Calendar } from "react-native-calendars";
-import React from "react";
+import { View, Text } from "react-native";
 
-const CalendarComponent = () => {
-  const task01 = {
-    key: "task01",
-    startingDay: true,
-    endingDay: true,
-    color: "blue",
-  };
-  const task02 = {
-    key: "task02",
-    startingDay: true,
-    endingDay: true,
-    color: "red",
-  };
-  const task03 = {
-    key: "task03",
-    startingDay: true,
-    endingDay: true,
-    color: "green",
-  };
+export default CalendarComponent = () => {
+  const [sample, setSample] = useState({
+    customStyles: { text: { fontSize: 5 } },
+    "2021-09-12": "\n睡眠時間:12\n起きやすさ:3\n元気度:5",
+    "2021-09-13": "\n睡眠時間:13\n起きやすさ:4\n元気度:4",
+  });
+
   return (
-    <Calendar
-      monthFormat={"yyyy年 MM月"}
-      onDayPress={(day) => {
-        alert("day is", day);
-      }}
-      markedDates={{
-        "2020-11-11": { periods: [task01, task02] },
-        "2021-09-09": { periods: [task02, task01, task03] },
-      }}
-      markingType={"multi-period"}
-      style={{
-        borderWidth: 3,
-        borderColor: "skyblue",
-        height: 500,
-      }}
-    />
+    <View>
+      <Calendar
+        monthFormat={"yyyy年 MM月"}
+        markedDates={sample}
+        // "2021-09-12": aa[0],
+        // "2021-09-13": aa[1],
+        // }
+        dayComponent={({ date, state, marking }) => {
+          return (
+            <View>
+              <Text
+                style={{
+                  textAlign: "center",
+                  color: state === "disabled" ? "gray" : "black",
+                }}
+                onPress={() => alert(date.day)}
+              >
+                {date.day}
+                {/* {marking} */}
+              </Text>
+              <Text
+                style={{
+                  textAlign: "center",
+                  color: state === "disabled" ? "gray" : "black",
+                  fontSize: 7,
+                }}
+              >
+                {marking}
+              </Text>
+            </View>
+          );
+        }}
+      />
+    </View>
   );
 };
-
-export default CalendarComponent;
