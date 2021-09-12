@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { Calendar, LocaleConfig } from "react-native-calendars";
 import { View, Text, StyleSheet } from "react-native";
+import AddModal from "./AddModal";
 
 export default CalendarComponent = () => {
   const [sample, setSample] = useState({
     "2021-09-12": "\n睡眠時間:12\n起きやすさ:3\n元気度:5",
     "2021-09-13": "\n睡眠時間:13\n起きやすさ:4\n元気度:4",
   });
+  const [modalToggle, setModalToggle] = useState(false);
+
+  const handleAdd = (date) => {
+    setModalToggle(!modalToggle);
+  };
 
   return (
     <View style={styles.container}>
@@ -23,7 +29,7 @@ export default CalendarComponent = () => {
                   color: state === "disabled" ? "gray" : "black",
                   height: 40,
                 }}
-                onPress={() => alert(date.day)}
+                onPress={() => handleAdd(date)}
               >
                 {date.day}
               </Text>
@@ -40,6 +46,11 @@ export default CalendarComponent = () => {
           );
         }}
       />
+      {modalToggle ? (
+        <AddModal setModalToggle={setModalToggle} modalToggle={modalToggle} />
+      ) : (
+        <></>
+      )}
     </View>
   );
 };
@@ -92,7 +103,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#A6A6A6",
   },
   calendar: {
-    marginTop: 50,
+    marginTop: 60,
     height: 500,
   },
 });
