@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Calendar } from "react-native-calendars";
-import { View, Text } from "react-native";
+import { Calendar, LocaleConfig } from "react-native-calendars";
+import { View, Text, StyleSheet } from "react-native";
 
 export default CalendarComponent = () => {
   const [sample, setSample] = useState({
@@ -9,8 +9,9 @@ export default CalendarComponent = () => {
   });
 
   return (
-    <View>
+    <View style={styles.container}>
       <Calendar
+        style={styles.calendar}
         monthFormat={"yyyy年 MM月"}
         markedDates={sample}
         dayComponent={({ date, state, marking }) => {
@@ -20,6 +21,7 @@ export default CalendarComponent = () => {
                 style={{
                   textAlign: "center",
                   color: state === "disabled" ? "gray" : "black",
+                  height: 40,
                 }}
                 onPress={() => alert(date.day)}
               >
@@ -41,3 +43,56 @@ export default CalendarComponent = () => {
     </View>
   );
 };
+
+LocaleConfig.locales.jp = {
+  monthNames: [
+    "1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月",
+  ],
+  monthNamesShort: [
+    "1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月",
+  ],
+  dayNames: [
+    "日曜日",
+    "月曜日",
+    "火曜日",
+    "水曜日",
+    "木曜日",
+    "金曜日",
+    "土曜日",
+  ],
+  dayNamesShort: ["日", "月", "火", "水", "木", "金", "土"],
+};
+LocaleConfig.defaultLocale = "jp";
+
+const styles = StyleSheet.create({
+  container: {
+    height: "100%",
+    backgroundColor: "#A6A6A6",
+  },
+  calendar: {
+    marginTop: 50,
+    height: 500,
+  },
+});
